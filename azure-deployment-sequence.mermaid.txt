@@ -1,0 +1,86 @@
+graph TB
+    subgraph "1. Foundation Layer"
+        RG[Resource Group]
+        LA[Log Analytics Workspace]
+        KV[Key Vault]
+    end
+
+    subgraph "2. Network Layer"
+        VNET[Virtual Network]
+        SUB[Subnet]
+        NSG[Network Security Groups]
+        RT[Route Table]
+        DNS[Private DNS Zone]
+        PEER[VNet Peering]
+    end
+
+    subgraph "3. Security Layer"
+        AD[Active Directory]
+        ROLE[Role Assignment]
+        FW[Firewall]
+        DDOS[DDoS Protection]
+        BST[Bastion]
+    end
+
+    subgraph "4. Storage Layer"
+        SA[Storage Account]
+        SAC[Storage Container]
+        SAF[File Share]
+    end
+
+    subgraph "5. Compute Layer"
+        AKS[AKS Cluster]
+        AKSN[AKS Node Pool]
+        WDC[Windows DC]
+        WVM[Windows VMs]
+        LVM[Linux VMs]
+        WFUN[Windows Functions]
+    end
+
+    subgraph "6. Application Layer"
+        AI[Application Insights]
+        AGW[App Gateway]
+        SP[Service Plan]
+        RDS[Redis]
+        CS[Communication Service]
+    end
+
+    subgraph "7. Monitoring Layer"
+        MW[Monitor Workspace]
+        MA[Monitor Alerts]
+        GF[Grafana]
+        CMS[Cost Management]
+    end
+
+    RG --> LA & KV
+    RG --> VNET
+    VNET --> SUB
+    SUB --> NSG
+    SUB --> RT
+    VNET --> PEER
+    VNET --> DNS
+    
+    KV --> AD
+    AD --> ROLE
+    VNET --> FW
+    VNET --> DDOS
+    VNET --> BST
+    
+    RG --> SA
+    SA --> SAC & SAF
+    
+    SUB --> AKS
+    AKS --> AKSN
+    SUB --> WDC & WVM & LVM
+    SP --> WFUN
+    
+    LA --> AI
+    SUB --> AGW
+    RG --> SP
+    RG --> RDS
+    RG --> CS
+    
+    LA --> MW
+    MW --> MA
+    LA --> GF
+    RG --> CMS
